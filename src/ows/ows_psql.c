@@ -46,7 +46,14 @@ printf("p2");
     if (ln->layer->name && ln->layer->storage
         && !strcmp(ln->layer->name->buf, layer_name->buf)){
           printf("p3");
-
+if(ln->layer->storage){printf("storagenotnull");}
+if(ln->layer->storage->pkey){
+  printf("pkeynotnull");
+  if(ln->layer->storage->pkey->use){
+  printf("pkeyuse");
+  }
+  
+}
       return ln->layer->storage->pkey;
         }
   }
