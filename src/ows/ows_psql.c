@@ -40,16 +40,17 @@ buffer *ows_psql_id_column(ows * o, buffer * layer_name)
   assert(o);
   assert(o->layers);
   assert(layer_name);
-//printf("p1");
-  for (ln = o->layers->first ; ln ; ln = ln->next)
-//printf("p2");
+printf("p1");
+  for (ln = o->layers->first ; ln ; ln = ln->next){
+printf("p2");
     if (ln->layer->name && ln->layer->storage
         && !strcmp(ln->layer->name->buf, layer_name->buf)){
-          //printf("p3");
+          printf("p3");
 
       return ln->layer->storage->pkey;
         }
-//printf("p4");
+  }
+printf("p4");
 
   return NULL;
 }
