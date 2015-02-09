@@ -811,7 +811,11 @@ printf("4");
     first_row = true;
 printf("5");
 buffer *t = ows_psql_id_column(o, ll->value);
+if(t && t->use){
+  printf("tuse");
+}
 printf("5a");
+  id_name = buffer_init();
     buffer_copy(id_name, t);
 printf("5b");
     number = -1;
