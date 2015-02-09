@@ -54,6 +54,7 @@ if(ln->layer->storage->pkey){
   }
   
 }
+ows_layer_storage_flush(ln->layer->storage, stdout);
       return ln->layer->storage->pkey;
         }
   }
