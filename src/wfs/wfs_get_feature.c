@@ -810,13 +810,13 @@ printf("4");
     prop_table = ows_psql_describe_table(o, ll->value);
     first_row = true;
 printf("5");
+/* CAUTION: pkey could be NULL ! */
 buffer *t = ows_psql_id_column(o, ll->value);
 if(t && t->use){
   printf("tuse");
-}
 printf("5a");
-  id_name = buffer_init();
     buffer_copy(id_name, t);
+}
 printf("5b");
     number = -1;
     if (id_name && id_name->use)
