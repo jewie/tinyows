@@ -33,7 +33,7 @@
 /*
  * Return the name of the id column from table matching layer name
  * CAUTION: result could be NULL !
-*/
+ */
 buffer *ows_psql_id_column(ows * o, buffer * layer_name)
 {
   ows_layer_node *ln = NULL;
@@ -41,6 +41,7 @@ buffer *ows_psql_id_column(ows * o, buffer * layer_name)
   assert(o);
   assert(o->layers);
   assert(layer_name);
+  
   for (ln = o->layers->first ; ln ; ln = ln->next){
     if (ln->layer->name && ln->layer->storage
         && !strcmp(ln->layer->name->buf, layer_name->buf)){
