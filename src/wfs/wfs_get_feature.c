@@ -794,46 +794,32 @@ static void wfs_geojson_display_results(ows * o, wfs_request * wr, mlist * reque
     fprintf(o->output, "urn:ogc:def:crs:EPSG::%i", wr->srs->srid);
 
   fprintf(o->output, "\"}}, \"features\": [");
-//printf("1");
   for (ln = request_list->first->value->first ; ln ; ln = ln->next) {
-//printf("2");
 
     res = ows_psql_exec(o, ln->value->buf);
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
-//printf("3");
       PQclear(res);
       ll = ll->next;
       break;
     }
-//printf("4");
 
     prop_table = ows_psql_describe_table(o, ll->value);
     first_row = true;
-//printf("5");
-/* CAUTION: pkey could be NULL ! */
-buffer *pkey = ows_psql_id_column(o, ll->value);
-if(pkey){
-//printf("5a");
-    buffer_copy(id_name, pkey);
-}
-//printf("5b");
+    buffer *pkey = ows_psql_id_column(o, ll->value);
+    if(pkey) buffer_copy(id_name, pkey);
     number = -1;
     if (id_name && id_name->use)
-//printf("6");
          number = PQfnumber(res, id_name->buf);
     buffer_empty(id_name);
 
-//printf("7");
     for (i=0 ; i < PQntuples(res) ; i++) {
 
-//printf("8");
       first_col = true;
       geoms = 0;
 
       if (first_row) first_row = false;
       else fprintf(o->output, ",");
 
-//printf("9");
       if ( number >= 0 ) {
         buffer_add_str(id_name, "\"id\": \"");
         buffer_copy(id_name, ows_layer_no_uri(o->layers, ll->value));
@@ -841,10 +827,8 @@ if(pkey){
         buffer_add_str(id_name, PQgetvalue(res, i, number));
         buffer_add_str(id_name, "\", ");
       }
-//printf("10");
       for (an = prop_table->first, j=0 ; an ; an = an->next, j++) {
         
-//printf("11");
         if (ows_psql_is_geometry_column(o, ll->value, an->key)) {
           buffer_add_str(geom, PQgetvalue(res, i, j));
           geoms++;
@@ -861,7 +845,6 @@ if(pkey){
           buffer_add(prop, '"');
         }
       }
-//printf("12");
 
       if (geoms == 0) {
         fprintf(o->output,
