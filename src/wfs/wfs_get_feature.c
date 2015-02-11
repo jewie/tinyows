@@ -794,7 +794,7 @@ static void wfs_geojson_display_results(ows * o, wfs_request * wr, mlist * reque
     fprintf(o->output, "urn:ogc:def:crs:EPSG::%i", wr->srs->srid);
 
   fprintf(o->output, "\"}}, \"features\": [");
-  
+
   for (ln = request_list->first->value->first ; ln ; ln = ln->next) {
 
     res = ows_psql_exec(o, ln->value->buf);
